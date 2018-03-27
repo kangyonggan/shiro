@@ -8,9 +8,6 @@ import freemarker.template.TemplateModelException;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * <p>Equivalent to {@link org.apache.shiro.web.tags.PermissionTag}</p>
- */
 public abstract class PermissionTag extends SuperTag {
     String getName(Map params) {
         return getParam(params, "name");

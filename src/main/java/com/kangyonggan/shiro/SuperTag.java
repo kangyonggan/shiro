@@ -11,9 +11,6 @@ import java.beans.PropertyDescriptor;
 import java.io.IOException;
 import java.util.Map;
 
-/**
- * <p>Equivalent to {@link org.apache.shiro.web.tags.SecureTag}</p>
- */
 public abstract class SuperTag implements TemplateDirectiveModel {
     public void execute(Environment env, Map params, TemplateModel[] loopVars, TemplateDirectiveBody body) throws TemplateException, IOException {
         verifyParameters(params);
@@ -36,7 +33,6 @@ public abstract class SuperTag implements TemplateDirectiveModel {
         try {
             return SecurityUtils.getSubject();
         } catch (Exception e) {
-//            e.printStackTrace();
         }
         return null;
     }
@@ -54,7 +50,6 @@ public abstract class SuperTag implements TemplateDirectiveModel {
         try {
             BeanInfo beanInfo = Introspector.getBeanInfo(principal.getClass());
 
-            // Loop through the properties to get the string value of the specified property
             for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
                 if (propertyDescriptor.getName().equals(property)) {
                     Object value = propertyDescriptor.getReadMethod().invoke(principal, (Object[]) null);
@@ -63,7 +58,6 @@ public abstract class SuperTag implements TemplateDirectiveModel {
                 }
             }
 
-            // property not found, throw
             throw new TemplateModelException("Property [" + property + "] not found in principal of type [" + principal.getClass().getName() + "]");
         } catch (Exception ex) {
             throw new TemplateModelException("Error reading property [" + property + "] from principal of type [" + principal.getClass().getName() + "]", ex);
